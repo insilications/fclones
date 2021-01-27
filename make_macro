@@ -1,0 +1,2 @@
+cargo update --verbose
+cargo update --package sysinfo --precise 0.15.3
