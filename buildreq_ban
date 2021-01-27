@@ -1,0 +1,15 @@
+# This file contains build requirements that get picked up but are
+# undesirable. One entry per line, no whitespace.
+ansi_term
+anyhow
+atty
+clap
+ctrlc
+dirs-next
+globset
+humantime
+ignore
+lazy_static
+lscolors
+num_cpus
+regex-syntax
