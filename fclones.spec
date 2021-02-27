@@ -5,9 +5,9 @@
 %define keepstatic 1
 Name     : fclones
 Version  : 0.8.0
-Release  : 1
-URL      : file:///insilications/build/clearlinux/packages/fclones/fclones-0.8.0.tar.gz
-Source0  : file:///insilications/build/clearlinux/packages/fclones/fclones-0.8.0.tar.gz
+Release  : 2
+URL      : file:///aot/build/clearlinux/packages/fclones/fclones-0.8.0.tar.gz
+Source0  : file:///aot/build/clearlinux/packages/fclones/fclones-0.8.0.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
@@ -32,7 +32,6 @@ BuildRequires : time
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-Patch1: 0001-Fix-compilation.-Fix-Cargo.toml.patch
 
 %description
 # FClones — Efficient Duplicate File Finder
@@ -49,7 +48,6 @@ bin components for the fclones package.
 %prep
 %setup -q -n fclones
 cd %{_builddir}/fclones
-%patch1 -p1
 
 %build
 unset http_proxy
@@ -58,17 +56,12 @@ unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 RUSTFLAGS="-C target-cpu=native"
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
-## make_macro start
 cargo update --verbose
-cargo update --package sysinfo --precise 0.15.3
-## make_macro end
 
 %install
-## install_macro start
 RUSTFLAGS="-C target-cpu=native"
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
-RUSTFLAGS="-C target-cpu=native" cargo install --verbose --no-track --locked --path . --root %{buildroot}/usr/
-## install_macro end
+RUSTFLAGS="-C target-cpu=native" cargo install --verbose --no-track --path . --root %{buildroot}/usr/
 
 %files
 %defattr(-,root,root,-)
